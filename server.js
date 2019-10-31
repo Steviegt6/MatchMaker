@@ -13,8 +13,13 @@ const server = app.listen(port, () => {
 const io = socket(server)
 
 const User = require('./model/User.js')
+const MatchMaker = require('./model/MatchMaker.js')
 
-const users = {}
+const users = {
+  'wiGcv8qw': { name: 'Christina', gender: 'female'},
+  'fgbj93De': { name: 'Alexa', gender: 'female'},
+  'wpd38vwE': { name: 'Mark', gender: 'male'}
+}
 
 io.on('connection', (socket) => {
   //socket.join('my room')
@@ -23,11 +28,16 @@ io.on('connection', (socket) => {
 
   socket.on('registered', (data) => {
     console.log(`${data.name} joined`)
-    users[socket.id] = new User({name: data.name, gender: data.gender})
+    
+    let user = new User({name: data.name, gender: data.gender})
+    
+    users[socket.id] = user
+    
+    const mm = new MatchMaker(user, users)
+    mm.findMatch()
   })
 
   socket.on('disconnect', () => {
-    console.log(`${users[socket.id].name} left`)
     delete users[socket.id]
   })
 })
