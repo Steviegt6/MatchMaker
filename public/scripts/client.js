@@ -11,3 +11,7 @@ sendButton.onclick = function () {
   const message = document.getElementById('message').value
   io.socket.emit('message', message)
 }
+
+io.socket.on('my event', function (data) {
+  console.log('my event received')
+})

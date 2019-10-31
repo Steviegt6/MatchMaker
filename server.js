@@ -14,6 +14,8 @@ const io = socket(server)
 
 io.on('connection', (socket) => {
   console.log(`${socket.id} joined`)
+  socket.join('my room')
+  io.to('my room').emit('my event');
 
   socket.on('message', (data) => {
     console.log(data)
