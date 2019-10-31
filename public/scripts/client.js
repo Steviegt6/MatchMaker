@@ -47,3 +47,7 @@ io.socket.on('joinroom', function (data) {
 
   window.location.href = 'chat.html'
 })
+
+io.socket.on('test', function (data) {
+  console.log(data)
+})

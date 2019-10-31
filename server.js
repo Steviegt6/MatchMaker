@@ -24,12 +24,12 @@ const MatchMaker = require('./model/MatchMaker.js')
 const users = []
 const rooms = []
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   // socket.join('my room')
   // io.to('my room').emit('my event');
   // console.log(io.sockets.adapter.rooms)
 
-  socket.on('registered', (data) => {
+  socket.on('registered', async (data) => {
     const user = new User({ id: socket.id, name: data.name, gender: data.gender })
     console.log(user)
 
@@ -42,8 +42,10 @@ io.on('connection', (socket) => {
       // We found a match!
       console.log(match)
 
-      io.to(socket.id).emit('joinroom', 'room1')
-      io.to(match.id).emit('joinroom', 'room1')
+      await io.to(socket.id).emit('joinroom', 'room1')
+      await io.to(match.id).emit('joinroom', 'room1')
+
+      await io.to('room1').emit('test', 'mytest')
     }
 
     console.log(`${data.name} joined (${Object.keys(users).length} users)`)
