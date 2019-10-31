@@ -12,17 +12,22 @@ const server = app.listen(port, () => {
 
 const io = socket(server)
 
+const User = require('./model/User.js')
+
+const users = {}
+
 io.on('connection', (socket) => {
-  console.log(`${socket.id} joined`)
   //socket.join('my room')
   //io.to('my room').emit('my event');
   //console.log(io.sockets.adapter.rooms)
 
   socket.on('registered', (data) => {
-    console.log(data)
+    console.log(`${data.name} joined`)
+    users[socket.id] = new User({name: data.name, gender: data.gender})
   })
 
   socket.on('disconnect', () => {
-    console.log(`${socket.id} left`)
+    console.log(`${users[socket.id].name} left`)
+    delete users[socket.id]
   })
 })
