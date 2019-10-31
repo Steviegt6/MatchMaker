@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
     const match = mm.findMatch()
 
     if (match !== undefined) {
+      // We found a match!
       console.log(match)
     }
 
