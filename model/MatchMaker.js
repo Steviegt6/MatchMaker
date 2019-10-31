@@ -3,29 +3,17 @@ module.exports = class MatchMaker {
     this.user = user
     this.users = users
   }
-  
-  findMatch() {
-    let males = []
-    let females = []
-    
-    for (const [key, value] of Object.entries(this.users)) {
-      if (value.gender === 'male') {
-        males.push(key)
-      }
-      
-      if (value.gender === 'female') {
-        females.push(key)
-      }
-    }
-    
+
+  findMatch () {
+    const males = this.users.filter(user => user.gender === 'male')
+    const females = this.users.filter(user => user.gender === 'female')
+
     if (this.user.gender === 'male') {
-      let female = females[Math.floor(Math.random()*females.length)]
-      console.log(this.users[female].name)
+      return females[Math.floor(Math.random() * females.length)]
     }
-    
+
     if (this.user.gender === 'female') {
-      let male = males[Math.floor(Math.random()*males.length)]
-      console.log(this.users[male].name)
+      return males[Math.floor(Math.random() * males.length)]
     }
   }
 }

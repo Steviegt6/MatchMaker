@@ -15,7 +15,7 @@ if (pathname === '/index.html' || pathname === '/') {
   const femaleButton = document.getElementById('female')
   const name = document.getElementById('name')
   const startChattingButton = document.getElementById('done')
-  
+
   maleButton.onclick = function () {
     gender = 'male'
   }
@@ -25,8 +25,8 @@ if (pathname === '/index.html' || pathname === '/') {
   }
 
   startChattingButton.onclick = function () {
-    user = new User({name: name.value, gender: gender})
-    
+    user = new User({ name: name.value, gender: gender })
+
     io.socket.emit('registered', user)
   }
 }
@@ -34,7 +34,7 @@ if (pathname === '/index.html' || pathname === '/') {
 if (pathname === '/chat.html') {
   const message = document.getElementById('message')
   const sendButton = document.getElementById('send')
-  
+
   sendButton.onclick = function () {
     io.socket.emit('message', message.value)
   }

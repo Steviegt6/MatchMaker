@@ -15,29 +15,36 @@ const io = socket(server)
 const User = require('./model/User.js')
 const MatchMaker = require('./model/MatchMaker.js')
 
-const users = {
-  'wiGcv8qw': { name: 'Christina', gender: 'female'},
-  'fgbj93De': { name: 'Alexa', gender: 'female'},
-  'wpd38vwE': { name: 'Mark', gender: 'male'}
-}
+const users = [
+  { id: 'wiGcv8qw', name: 'Christina', gender: 'female' },
+  { id: 'fgbj93De', name: 'Alexa', gender: 'female' },
+  { id: 'wpd38vwE', name: 'Mark', gender: 'male' }
+]
+
+// const users = []
 
 io.on('connection', (socket) => {
-  //socket.join('my room')
-  //io.to('my room').emit('my event');
-  //console.log(io.sockets.adapter.rooms)
+  // socket.join('my room')
+  // io.to('my room').emit('my event');
+  // console.log(io.sockets.adapter.rooms)
 
   socket.on('registered', (data) => {
-    console.log(`${data.name} joined`)
-    
-    let user = new User({name: data.name, gender: data.gender})
-    
-    users[socket.id] = user
-    
+    const user = new User({ id: socket.id, name: data.name, gender: data.gender })
+
+    users.push(user)
+
     const mm = new MatchMaker(user, users)
-    mm.findMatch()
+    const match = mm.findMatch()
+
+    if (match !== undefined) {
+      console.log(match)
+    }
+
+    console.log(`${data.name} joined (${Object.keys(users).length} users)`)
   })
 
   socket.on('disconnect', () => {
     delete users[socket.id]
+    console.log(`A user disconnected. (${Object.keys(users).length} users)`)
   })
 })
