@@ -40,6 +40,10 @@ if (pathname === '/chat.html') {
   }
 }
 
-io.socket.on('my event', function (data) {
-  console.log('my event received')
+io.socket.on('joinroom', function (data) {
+  // Data being the room.
+  console.log('Joining ' + data)
+  io.socket.emit('join', data)
+
+  window.location.href = 'chat.html'
 })
