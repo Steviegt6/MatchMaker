@@ -14,10 +14,11 @@ const io = socket(server)
 
 io.on('connection', (socket) => {
   console.log(`${socket.id} joined`)
-  socket.join('my room')
-  io.to('my room').emit('my event');
+  //socket.join('my room')
+  //io.to('my room').emit('my event');
+  //console.log(io.sockets.adapter.rooms)
 
-  socket.on('message', (data) => {
+  socket.on('registered', (data) => {
     console.log(data)
   })
 
