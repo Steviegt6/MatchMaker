@@ -1,5 +1,5 @@
 module.exports = class MatchMaker {
-  constructor (user, users) {
+  constructor ({ user, users }) {
     this.user = user
     this.users = users
   }

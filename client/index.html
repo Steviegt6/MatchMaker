@@ -13,16 +13,25 @@
 </head>
 
 <body>
-	<h1>Chat with Strangers!</h1>
+	<h1></h1>
 	<!--Setup-->
 	<h2>Lets get you setup first!</h2>
 	<p>Name:</p>
 	<input id="name">
-	<button id="male">Male</button>
-	<button id="female">Female</button>
-	<button id="done">Start Chatting</button>
+	<select id="gender" onchange="updateGender()">
+		<option value="male">Male</button>
+		<option value="female">Female</button>
+	</select>
+	<button id="done">Search for Partner!</button>
 	
-	<a href="chat.html">Chat</a>
+	<br><br>================================================
+	
+	<p>Chat</p>
+	<!--Chat-->
+	<h2>Chat</h2>
+	<ul id="messages"></ul>
+	<input id="message" autocomplete="off">
+	<button id="send">Send</button>
 
 	<script src="scripts/client.js"></script>
 </body>

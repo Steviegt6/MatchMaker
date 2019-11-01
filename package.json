@@ -2,7 +2,7 @@
   "name": "ChatWithStrangers",
   "version": "1.0.0",
   "description": "Chat with the opposite sex.",
-  "main": "server.js",
+  "main": "server/server.js",
   "author": "valkyrienyanko",
   "license": "MIT",
   "dependencies": {
