@@ -2,6 +2,7 @@ var socket = null
 
 let gender = null
 let user = null
+let room = null
 
 io.socket = io.connect('http://localhost:7777/', { // Make connection
   reconnect: false,
@@ -29,6 +30,17 @@ if (pathname === '/index.html' || pathname === '/') {
 
     io.socket.emit('registered', user)
   }
+  
+  io.socket.on('joinroom', function (data) {
+    // Data being the room.
+    console.log('Joining ' + data)
+    io.socket.emit('join', data)
+    
+    room = data
+    sessionStorage.setItem('room', data)
+
+    window.location.href = 'chat.html'
+  })
 }
 
 if (pathname === '/chat.html') {
@@ -36,18 +48,10 @@ if (pathname === '/chat.html') {
   const sendButton = document.getElementById('send')
 
   sendButton.onclick = function () {
-    io.socket.emit('message', message.value)
+    io.socket.emit('message', {room: sessionStorage.getItem('room'), message: message.value})
   }
+  
+  io.socket.on('message', function (data) {
+    console.log(data)
+  })
 }
-
-io.socket.on('joinroom', function (data) {
-  // Data being the room.
-  console.log('Joining ' + data)
-  io.socket.emit('join', data)
-
-  window.location.href = 'chat.html'
-})
-
-io.socket.on('test', function (data) {
-  console.log(data)
-})

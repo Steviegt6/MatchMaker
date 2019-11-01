@@ -14,6 +14,7 @@ const io = socket(server)
 
 const User = require('./model/User.js')
 const MatchMaker = require('./model/MatchMaker.js')
+const Room = require('./model/Room.js')
 
 /* const users = [
   { id: 'wiGcv8qw', name: 'Christina', gender: 'female' },
@@ -24,12 +25,8 @@ const MatchMaker = require('./model/MatchMaker.js')
 const users = []
 const rooms = []
 
-io.on('connection', async (socket) => {
-  // socket.join('my room')
-  // io.to('my room').emit('my event');
-  // console.log(io.sockets.adapter.rooms)
-
-  socket.on('registered', async (data) => {
+io.on('connection', (socket) => {
+  socket.on('registered', (data) => {
     const user = new User({ id: socket.id, name: data.name, gender: data.gender })
     console.log(user)
 
@@ -41,11 +38,13 @@ io.on('connection', async (socket) => {
     if (match !== undefined) {
       // We found a match!
       console.log(match)
+      
+      const room = new Room({name: 'room1', sockets: [socket.id, match.id]})
+      
+      rooms.push(room)
 
-      await io.to(socket.id).emit('joinroom', 'room1')
-      await io.to(match.id).emit('joinroom', 'room1')
-
-      await io.to('room1').emit('test', 'mytest')
+      io.to(socket.id).emit('joinroom', room.name)
+      io.to(match.id).emit('joinroom', room.name)
     }
 
     console.log(`${data.name} joined (${Object.keys(users).length} users)`)
@@ -53,6 +52,11 @@ io.on('connection', async (socket) => {
 
   socket.on('join', (data) => {
     socket.join(data)
+  })
+  
+  socket.on('message', (data) => {
+    console.log(data)
+    io.to(data.room).emit('message', data.message)
   })
 
   socket.on('disconnect', () => {
