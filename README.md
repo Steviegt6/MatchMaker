@@ -9,3 +9,6 @@ Site that prompts you to choose your gender and matches you with the opposite se
 3. Run `yarn install` to install all the projects dependencies.
 4. Run `yarn dev:server` to run the server.
 5. Go to `http://localhost:7777/`.
+
+## Contributing
+See [CONTRIBUTING.md](https://github.com/valkyrienyanko/ValksMatchMaker/blob/master/CONTRIBUTING.md).
