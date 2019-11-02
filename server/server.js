@@ -44,20 +44,20 @@ io.on('connection', (socket) => {
   })
 
   socket.on('message', (data) => {
-    const {room, user} = Room.getRoomAndUser(socket)
+    const { room, user } = Room.getRoomAndUser(socket)
 
-    io.to(room.name).emit('message', {username: user.name, message: data})
+    io.to(room.name).emit('message', { username: user.name, message: data })
   })
 
   socket.on('disconnect', () => {
-    const {room, user} = Room.getRoomAndUser(socket)
-    
+    const { room, user } = Room.getRoomAndUser(socket)
+
     // Will always be undefined when a user is not in a room.
     if (user !== undefined) {
       Room.removeUser(socket)
       io.to(room.name).emit('left', user.name)
     }
-    
+
     User.disconnect(socket)
   })
 })

@@ -4,21 +4,24 @@ const name = document.getElementById('name')
 const startChattingButton = document.getElementById('done')
 const message = document.getElementById('message')
 const sendButton = document.getElementById('send')
+const textarea = document.getElementById('messages')
+const setup = document.getElementById('setup')
+const status = document.getElementById('status')
+const status_message = document.getElementById('status_message')
 
 startChattingButton.onclick = function () {
   user = new User({ name: name.value, gender: gender })
 
   io.socket.emit('registered', user)
-  
-  const setup = document.getElementById('setup')
-  const chat = document.getElementById('chat')
-  
+
   setup.style.display = 'none'
-  chat.style.display = 'block'
+  status.style.display = 'block'
+  status_message.textContent = 'Searching for Partner..'
 }
 
 sendButton.onclick = function () {
   io.socket.emit('message', message.value)
+  message.value = '' // Reset the input field on send.
 }
 
 function updateGender () {
@@ -26,9 +29,7 @@ function updateGender () {
   gender = genderSelect.options[genderSelect.selectedIndex].value
 }
 
-function addChatMessage(message) {
-  const ul = document.getElementById('messages')
-  const li = document.createElement('li')
-  li.appendChild(document.createTextNode(message))
-  ul.appendChild(li)
+function addChatMessage (message) {
+  textarea.value += '\n' + message // Add a message on a new line to the text area.
+  textarea.scrollTop = textarea.scrollHeight // Autoscroll with messages.
 }

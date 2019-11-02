@@ -13,9 +13,12 @@
 </head>
 
 <body>
-	<div class="splash">
+	<div id="splash" class="splash">
+		<div id="status" class="status">
+			<h2 id="status_message"></h2>
+		</div>
 		<div id="setup" class="info">
-			<h2>Lets get you setup first!</h2>
+			<h2>Match Maker <3</h2>
 			<p>Name:</p><input id="name">
 			<select id="gender" onchange="updateGender()">
 				<option value="male">Male</button>
@@ -28,7 +31,7 @@
 	<br><br><br><br>
 	
 	<div id="chat" class="chat">
-		<textarea rows="6" cols="100" readonly></textarea>
+		<textarea id="messages" rows="20" cols="100" readonly></textarea>
 		<br>
 		<input id="message">
 		<button id="send">Send</button>
