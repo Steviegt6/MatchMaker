@@ -19,6 +19,10 @@ const Room = require('./model/Room.js')
 
 io.on('connection', (socket) => {
   socket.on('registered', (data) => {
+    if (data.name === undefined || data.gender === undefined) { return }
+
+    if (data.name.length < 2 || data.name.length > 15) { return }
+
     const user = new User({ id: socket.id, name: data.name, gender: data.gender })
 
     User.users.push(user)
@@ -44,16 +48,22 @@ io.on('connection', (socket) => {
   })
 
   socket.on('message', (data) => {
+    if (data === undefined) return
+    if (data.length < 1) return
+
     const { room, user } = Room.getRoomAndUser(socket)
 
-    io.to(room.name).emit('message', { username: user.name, message: data })
+    // We cannot trust that the client will always give the correct data.
+    if (room !== undefined && user !== undefined) {
+      io.to(room.name).emit('message', { username: user.name, message: data })
+    }
   })
 
   socket.on('disconnect', () => {
     const { room, user } = Room.getRoomAndUser(socket)
 
     // Will always be undefined when a user is not in a room.
-    if (user !== undefined) {
+    if (room !== undefined && user !== undefined) {
       Room.removeUser(socket)
       io.to(room.name).emit('left', user.name)
     }

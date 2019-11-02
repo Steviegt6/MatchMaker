@@ -37,12 +37,13 @@ button {
 	bottom: 0; 
 	left: 0; 
 	right: 0;
+	display: block;
 }
 
 .info {
 	margin: auto;
 	width: 50%;
-	transform: translateY(150%);
+	transform: translateY(250%);
 }
 
 .chat {

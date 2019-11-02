@@ -1,7 +1,7 @@
 var socket = null
 
-const gender = 'male'
-const user = null
+let gender = 'male'
+let user = null
 
 io.socket = io.connect('http://localhost:7777/', { // Make connection
   reconnect: false,
@@ -9,11 +9,9 @@ io.socket = io.connect('http://localhost:7777/', { // Make connection
 })
 
 io.socket.on('joinroom', function (data) {
-  const splash = document.getElementById('splash')
-  const chat = document.getElementById('chat')
-
   splash.style.display = 'none'
   chat.style.display = 'block'
+  message.focus()
 
   io.socket.emit('join', data)
 })
