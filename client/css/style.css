@@ -32,28 +32,18 @@ button {
 }
 
 .splash {
-  flex: 1;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	position: absolute;
+	top: 0; 
+	bottom: 0; 
+	left: 0; 
+	right: 0;
+	display: block;
 }
 
 .info {
+	margin: auto;
 	width: 50%;
-}
-
-.info form {
-  display: flex;
-  justify-content: center;
-}
-
-.info form #gender {
-  margin: 0 12px;
-}
-
-.info form h2 {
-  margin-top: 0;
+	transform: translateY(250%);
 }
 
 .chat {
@@ -61,5 +51,7 @@ button {
 }
 
 .status {
+	margin: auto;
+	transform: translateY(900%);
 	display: none;
 }
