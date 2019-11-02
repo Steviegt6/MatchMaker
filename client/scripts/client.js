@@ -9,7 +9,7 @@ io.socket = io.connect('http://localhost:7777/', { // Make connection
 })
 
 io.socket.on('joinroom', function (data) {
-  splash.style.display = 'none'
+  status.style.display = 'none'
   chat.style.display = 'block'
   message.focus()
 
