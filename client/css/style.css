@@ -1,11 +1,53 @@
 body {
-	background-color: rgb(255, 255, 255);
+	background-color: rgb(0, 0, 0);
+	color: white;
+	text-align: center;
 }
 
 input {
-	color: white;
 	background-color: black;
-	border-color: rgb(20, 20, 20);
+	border-color: rgb(100, 100, 100);
 	border-style: dashed;
+	color: white;
 	outline: none;
+}
+
+textarea {
+	background-color: black;
+	border-color: rgb(100, 100, 100);
+	border-style: dashed;
+	color: white;
+	outline: none;
+	resize: none;
+}
+
+button {
+	background-color: black;
+	border-color: rgb(100, 100, 100);
+	border-style: dashed;
+	color: white;
+	display: inline-block;
+	padding: 10px;
+	text-decoration: none;
+}
+
+.splash {
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	border-width: 9px;
+  border-style: solid;
+	border-color: red;
+}
+
+.info {
+	margin: auto;
+	width: 50%;
+	transform: translateY(100%);
+	border-width: 9px;
+  border-style: solid;
+	border-color: green;
+}
+
+.chat {
+	display: none;
 }

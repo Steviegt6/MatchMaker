@@ -12,6 +12,7 @@ const server = app.listen(port, () => {
 
 const io = socket(server)
 
+const Utils = require('./model/Utils.js')
 const User = require('./model/User.js')
 const MatchMaker = require('./model/MatchMaker.js')
 const Room = require('./model/Room.js')
@@ -43,12 +44,20 @@ io.on('connection', (socket) => {
   })
 
   socket.on('message', (data) => {
-    const [room, user] = Room.getSocketRoomAndUser(socket)
+    const {room, user} = Room.getRoomAndUser(socket)
 
-    io.to(room.name).emit('message', `${user.name}: ${data}`)
+    io.to(room.name).emit('message', {username: user.name, message: data})
   })
 
   socket.on('disconnect', () => {
+    const {room, user} = Room.getRoomAndUser(socket)
+    
+    // Will always be undefined when a user is not in a room.
+    if (user !== undefined) {
+      Room.removeUser(socket)
+      io.to(room.name).emit('left', user.name)
+    }
+    
     User.disconnect(socket)
   })
 })
