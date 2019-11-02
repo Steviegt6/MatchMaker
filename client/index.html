@@ -18,8 +18,8 @@
 			<h2 id="status_message"></h2>
 		</div>
 		<div id="setup" class="info">
+      <h2>Chat as a Guest</h2>
 			<form onsubmit="return false">
-				<h2>Chat as a Guest</h2>
 				<input type="text" pattern=".{2,15}" required title="Name must be between 2 to 15 characters" id="name">
 				<select id="gender" onchange="updateGender()">
 					<option value="male">Male</button>
@@ -27,18 +27,17 @@
 				</select>
 				<button id="done">Search for Partner!</button>
 			</form>
-		</div>
+    </div>
+    <div id="chat" class="chat">
+      <textarea id="messages" rows="20" cols="100" readonly></textarea>
+      <br>
+      <input type="text" id="message" autocomplete="off">
+      <button id="send">Send</button>
+    </div>  
 	</div>
 	
 	<br><br><br><br>
 	
-	<div id="chat" class="chat">
-		<textarea id="messages" rows="20" cols="100" readonly></textarea>
-		<br>
-		<input type="text" id="message" autocomplete="off">
-		<button id="send">Send</button>
-	</div>
-
 	<script src="scripts/client.js"></script>
 	<script src="scripts/ui.js"></script>
 </body>
