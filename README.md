@@ -2,8 +2,6 @@
 
 ## About
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/valkyrienyanko/MatchMaker.svg)](https://greenkeeper.io/)
-
 Site that prompts you to choose your gender and matches you with the opposite sex. :heart:
 
 ## Setup
